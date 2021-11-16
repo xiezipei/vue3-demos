@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div id="app">
+        <p v-if="seen">现在你看到我了</p>
+        <button v-on:click="toggleSeen()">switch</button>
+    </div>
+    <script src="https://unpkg.com/vue@3.2.22"></script>
+    <script>
+        // 示例：条件控制
+        const MyApp = {
+            data() {
+                return {
+                    seen: true
+                }
+            },
+            methods: {
+                toggleSeen() {
+                    this.seen = !this.seen;
+                }
+            }
+        }
+        Vue.createApp(MyApp).mount('#app');
+    </script>
+</body>
+</html>
