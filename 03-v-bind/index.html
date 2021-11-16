@@ -1,34 +1,26 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
 </head>
-
 <body>
-    <div id="counter">
-        Counter: {{ counter }}
+    <div id="app">
+        <span v-bind:title="message">Hover it</span>
     </div>
     <script src="https://unpkg.com/vue@3.2.22"></script>
     <script>
-        // 示例：响应式说明
-        const Counter = {
+        // 示例：绑定元素属性
+        const MyApp = {
             data() {
                 return {
-                    counter: 0
+                    message: 'You loaded this page on ' + new Date().toLocaleString()
                 }
-            },
-            mounted() { // 在实例挂载完成后被调用
-                setInterval(() => {
-                    this.counter++; // 改变变量
-                }, 1000)
             }
         }
-        Vue.createApp(Counter).mount('#counter')
+        Vue.createApp(MyApp).mount('#app');
     </script>
 </body>
-
 </html>

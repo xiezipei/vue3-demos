@@ -8,14 +8,21 @@
 </head>
 <body>
     <div id="app">
-        <span v-bind:title="message">hover this</span>
+        <p>{{ message }}</p>
+        <button v-on:click="reverseMessage">Reverse message</button>
     </div>
     <script src="https://unpkg.com/vue@3.2.22"></script>
     <script>
+        // 示例：事件监听
         const MyApp = {
             data() {
                 return {
-                    message: 'You loaded this page on ' + new Date().toLocaleString()
+                    message: 'Hello Vue.js!'
+                }
+            },
+            methods: {
+                reverseMessage() {  // 这是事件监听执行方法
+                    this.message = this.message.split('').reverse().join('')
                 }
             }
         }
