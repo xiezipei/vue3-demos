@@ -14,15 +14,16 @@
     </div>
     <script src="https://unpkg.com/vue@3.2.22"></script>
     <script>
+        // 响应式示例
         const Counter = {
             data() {
                 return {
                     counter: 0
                 }
             },
-            mounted() {
+            mounted() { // 在实例挂载完成后被调用
                 setInterval(() => {
-                    this.counter++;
+                    this.counter++; // 改变变量
                 }, 1000)
             }
         }
