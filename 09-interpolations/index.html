@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .wrap {
+            border: 1px solid #e0e0e0;
+            padding: 20px;
+            margin: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div id="app">
+        <!-- 文本插值 -->
+        <div class="wrap">
+            <div class="wrap">文本：{{ msg }}</div>
+            <div class="wrap" v-once>只改变一次文本：{{ msg }}</div>
+            <button v-on:click="changeText()">改变文本</button>
+        </div>
+    </div>
+    <script src="https://unpkg.com/vue@3.2.22"></script>
+    <script>
+        // 示例：模板语法 - 插值
+        const MyApp = {
+            data() {
+                return {
+                    msg: '123'
+                }
+            },
+            methods: {
+                changeText() {
+                    this.msg = '456'
+                }
+            }
+        }
+        Vue.createApp(MyApp).mount('#app')
+    </script>
+</body>
+</html>

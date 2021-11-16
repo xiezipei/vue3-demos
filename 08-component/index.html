@@ -32,7 +32,7 @@
         }
         const app = Vue.createApp(MyApp)
 
-        // 定义子组件
+        // 用 `component([组件名], [组件配置对象])` 方法加载一个组件
         app.component('todo-item', {
             props: ['todo'],
             template: `<li>{{ todo.text }}</li>`
