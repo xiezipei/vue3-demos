@@ -12,16 +12,20 @@
     <div id="counter">
         Counter: {{ counter }}
     </div>
-    <script src="https://unpkg.com/vue@next"></script>
+    <script src="https://unpkg.com/vue@3.2.22"></script>
     <script>
         const Counter = {
             data() {
                 return {
                     counter: 0
                 }
+            },
+            mounted() {
+                setInterval(() => {
+                    this.counter++;
+                }, 1000)
             }
         }
-
         Vue.createApp(Counter).mount('#counter')
     </script>
 </body>
