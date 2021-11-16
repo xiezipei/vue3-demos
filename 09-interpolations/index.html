@@ -11,15 +11,25 @@
             padding: 20px;
             margin: 20px;
         }
+        .mb-16 {
+            margin-bottom: 16px;
+        }
     </style>
 </head>
 <body>
     <div id="app">
         <!-- 文本插值 -->
         <div class="wrap">
-            <div class="wrap">文本：{{ msg }}</div>
-            <div class="wrap" v-once>只改变一次文本：{{ msg }}</div>
+            <div class="mb-16">文本：{{ msg }}</div>
+            <div class="mb-16" v-once>只改变一次文本（v-once）：{{ msg }}</div>
             <button v-on:click="changeText()">改变文本</button>
+        </div>
+        
+        <!-- 原始 HTML -->
+        <div class="wrap">
+            <div class="mb-16">双括号语法：{{ rawHtml }}</div>
+            <div class="mb-16">输出真正HTML：<span v-html="rawHtml"></span></div>
+            <template>123</template>
         </div>
     </div>
     <script src="https://unpkg.com/vue@3.2.22"></script>
@@ -28,7 +38,8 @@
         const MyApp = {
             data() {
                 return {
-                    msg: '123'
+                    msg: '123',
+                    rawHtml: '<span style="color: red">This should be red.</span>'
                 }
             },
             methods: {
