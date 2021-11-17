@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="../assets/css/styles.css">
+</head>
+<body>
+    <div id="app">
+        <!-- 1. 对象语法 -->
+        <div class="wrap">
+            <p :class="{ bolder: isBold }">isBold: {{ isBold }}</p>
+            <p :class="{ 'color-red': isRed }">isRed: {{ isRed }}</p>
+            <!-- 变种：整合成一个对象 -->
+            <p :class="bolderAndRed">isBold: {{ isBold }} && isRed: {{ isRed }}</p>
+        </div>
+
+        <!-- 2. 数组语法 -->
+        <div class="wrap">
+            <p :class="[bolder, colorRed]">bolder color-red</p>
+            <p :class="[isActive ? activeClass : defaultClass]">activeClass</p>
+        </div>
+    </div>
+    <script src="../assets/js/vue@3.2.22.js"></script>
+    <script>
+        // 示例：styel and class
+        const vm = Vue.createApp({
+            data() {
+                return {
+                    // 对象语法
+                    isBold: true,
+                    isRed: false,
+                    bolderAndRed: {
+                        bolder: false,
+                        'color-red': true
+                    },
+                    // 数组语法
+                    bolder: 'bolder',
+                    colorRed: 'color-red',
+                    isActive: true,
+                    activeClass: 'bolder color-red',
+                    defaultClass: ''
+                }
+            }
+        }).mount('#app')
+    </script>
+</body>
+</html>
