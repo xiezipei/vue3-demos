@@ -31,16 +31,24 @@
             <!-- 定时3秒，自动将属性 `href`改为 `title` -->
             <a v-bind:[attributename]="attributevalue">动态参数</a>
         </div>
+
+        <!-- 4. 修饰符 -->
+        <!-- 没想好示例，先跳过 -->
+
+        <!-- 5. 缩写 -->
+        <!-- 见之前 `v-on`、`v-bind` 示例 -->
     </div>
     <script src="https://unpkg.com/vue@3.2.22"></script>
     <script>
+        // 示例：模板语法 - 指令
         const myApp = {
             data() {
+                const link = 'http://www.baidu.com'
                 return {
                     seen: true, // 试下改为 `false`，然后审查元素
-                    link: 'http://www.baidu.com',
+                    link,
                     attributename: 'href',
-                    attributevalue: 'http://www.baidu.com',
+                    attributevalue: link, // Q: 如何访问上面的 link？ ——已解决
                 }
             },
             methods: {
