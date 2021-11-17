@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div id="app">
+
+    </div>
+    <script src="https://unpkg.com/vue@3.2.22"></script>
+    <script>
+        const vm = Vue.createApp({
+            data() {
+                return {
+                    count: 4
+                }
+            }
+        }).mount('#app')
+        
+        console.log('vm', vm)
+        console.log(vm.$data.count) // => 4
+        console.log(vm.count)   // => 4
+
+        // 修改 vm.count 的值也会更新 $data.count
+        vm.count = 5
+        console.log(vm.$data.count) // => 5
+
+        // 反之亦然
+        vm.$data.count = 6
+        console.log(vm.count)   // => 6
+    </script>
+</body>
+</html>
