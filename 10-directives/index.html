@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="../assets/css/styles.css">
+</head>
+<body>
+    <div id="app">
+        <!-- 1. 指令示例 -->
+        <div class="wrap">
+            <p v-if="seen">你看到我吗？</p>
+        </div>
+
+        <!-- 2. 参数（指令最多能传多少参数？） -->
+        <div class="wrap">
+            <!-- 指令接收参数，动态改变属性 -->
+            <div class="mb-16">
+                <a v-bind:href="link">绑定属性</a>
+            </div>
+            <!-- 指令接收参数，监听 DOM 事件 -->
+            <div>
+                <button v-on:click="showHello()">绑定事件</button>
+            </div>
+        </div>
+
+        <!-- 3. 动态参数 -->
+        <div class="wrap">
+            <!-- 定时3秒，自动将属性 `href`改为 `title` -->
+            <a v-bind:[attributename]="attributevalue">动态参数</a>
+        </div>
+    </div>
+    <script src="https://unpkg.com/vue@3.2.22"></script>
+    <script>
+        const myApp = {
+            data() {
+                return {
+                    seen: true, // 试下改为 `false`，然后审查元素
+                    link: 'http://www.baidu.com',
+                    attributename: 'href',
+                    attributevalue: 'http://www.baidu.com',
+                }
+            },
+            methods: {
+                showHello() {
+                    alert('Hello!')
+                }
+            },
+            mounted () {
+                setTimeout(() => {
+                    this.attributename = 'title';
+                }, 3000)
+                
+            }
+        }
+        Vue.createApp(myApp).mount('#app');
+    </script>
+</body>
+</html>

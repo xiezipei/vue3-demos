@@ -1,0 +1,11 @@
+.wrap {
+    border: 1px solid #e0e0e0;
+    padding: 20px;
+    margin: 20px;
+}
+.mb-16 {
+    margin-bottom: 16px;
+}
+.color-red {
+    color: red;
+}
