@@ -14,22 +14,57 @@
         .mb-16 {
             margin-bottom: 16px;
         }
+        .color-red {
+            color: red;
+        }
     </style>
 </head>
 <body>
     <div id="app">
-        <!-- 文本插值 -->
+        <!-- 1. 文本插值 -->
         <div class="wrap">
             <div class="mb-16">文本：{{ msg }}</div>
             <div class="mb-16" v-once>只改变一次文本（v-once）：{{ msg }}</div>
             <button v-on:click="changeText()">改变文本</button>
         </div>
         
-        <!-- 原始 HTML -->
+        <!-- 2. 原始 HTML -->
         <div class="wrap">
+            <!-- 作为文本渲染 -->
             <div class="mb-16">双括号语法：{{ rawHtml }}</div>
+            <!-- 渲染为html -->
             <div class="mb-16">输出真正HTML：<span v-html="rawHtml"></span></div>
             <template>123</template>
+        </div>
+
+        <!-- 3. attribute -->
+        <div class="wrap">
+            <!-- 绑定值为null或undefined时，该attribute将不会包含在渲染元素中 -->
+            <button v-bind:disabled="isButtonDisabled">按钮</button>
+        </div>
+        
+        <!-- 4. JS 表达式 -->
+        <div class="wrap">
+            <div class="mb-16">
+                {{ number + 1 }}
+            </div>
+            <div class="mb-16">
+                {{ ok ? 'YES' : 'NO' }}
+            </div>
+            <div class="mb-16">
+                {{ message.split('').reverse().join('') }}
+            </div>
+            <div class="mb-16">
+                <div v-bind:class="'color-' + id">see id</div>
+            </div>
+            <!-- 报错！ -->
+            <!-- <div class="mb-16">
+                {{ var a = 1 }}
+            </div> -->
+            <!-- 报错！ -->
+            <!-- <div class="mb-16">
+                {{ if (ok) { return message } }}
+            </div> -->
         </div>
     </div>
     <script src="https://unpkg.com/vue@3.2.22"></script>
@@ -39,7 +74,10 @@
             data() {
                 return {
                     msg: '123',
-                    rawHtml: '<span style="color: red">This should be red.</span>'
+                    rawHtml: '<span style="color: red">This should be red.</span>',
+                    isButtonDisabled: '',  // 试下改为 true, false, null, undefined, ''，然后审查元素看下区别
+                    id: 'red',
+                    message: 'Hello Vue.js!'
                 }
             },
             methods: {
