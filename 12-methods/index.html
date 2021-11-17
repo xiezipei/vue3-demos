@@ -11,24 +11,24 @@
     <script src="https://unpkg.com/vue@3.2.22"></script>
     <script>
         const vm = Vue.createApp({
-            data() {    // `data` 是一个函数
+            data() {
                 return {
                     count: 4
                 }
+            },
+            methods: {
+                increment() {
+                    this.count++;   // `this`指向该组件实例
+                }
             }
         }).mount('#app')
-        
-        console.log('vm', vm)
-        console.log(vm.$data.count) // => 4
+
         console.log(vm.count)   // => 4
 
-        // 修改 vm.count 的值也会更新 $data.count
-        vm.count = 5
-        console.log(vm.$data.count) // => 5
-
-        // 反之亦然
-        vm.$data.count = 6
-        console.log(vm.count)   // => 6
+        // Vue 自动为 methods 绑定 this，以便于它始终指向组件实例。
+        // 这将确保方法在用作事件监听或回调时保持正确的 this 指向。
+        vm.increment();
+        console.log(vm.count)   // => 5
     </script>
 </body>
 </html>
