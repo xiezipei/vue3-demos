@@ -13,7 +13,6 @@
         <div class="wrap">
             <p :class="{ bolder: isBold }">isBold: {{ isBold }}</p>
             <p :class="{ 'color-red': isRed }">isRed: {{ isRed }}</p>
-            <!-- 变种：整合成一个对象 -->
             <p :class="bolderAndRed">isBold: {{ isBold }} && isRed: {{ isRed }}</p>
         </div>
 
@@ -21,6 +20,7 @@
         <div class="wrap">
             <p :class="[bolder, colorRed]">bolder color-red</p>
             <p :class="[isActive ? activeClass : defaultClass]">activeClass</p>
+            <p :class="[{ bolder: isBold }, colorRed]">activeClass</p>
         </div>
     </div>
     <script src="../assets/js/vue@3.2.22.js"></script>
