@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="../assets/css/styles.css">
+</head>
+<body>
+    <div id="app">
+        <p>Has publish books:</p>
+
+        <span>使用计算属性：{{ publishedBooksMessage }}</span>
+        <br>
+
+        <span>使用方法：{{ calculateBooksMessage() }}</span>
+        <br>
+
+        <button @click="updateBooks()">Update Books</button>
+        <br>
+
+        <div class="wrap">
+            <div class="mb-16">1.5秒后重新访问：</div>
+            <div class="mb-16">使用计算属性：{{ updateValueByComputed }}</div>
+            <div>使用方法：{{ updateValueByMethod }}</div>
+        </div>
+    </div>
+    <script src="https://unpkg.com/vue@3.2.22"></script>
+    <script>
+        // 示例：计算属性
+        const vm = Vue.createApp({
+            data() {
+                return {
+                    author: {
+                        name: 'John Doe',
+                        books: [
+                            'book 1',
+                            'book 2',
+                            'book 3',
+                        ]
+                    },
+                    updateValueByComputed: '',
+                    updateValueByMethod: ''
+                }
+            },
+            // 对于任何包含响应式数据的复杂逻辑，你都应该使用计算属性
+            computed: {
+                publishedBooksMessage() {
+                    return (this.author.books.length > 0 ? 'Yes - ' : 'No - ') + Date.now()
+                },
+            },
+            methods: {
+                calculateBooksMessage() {
+                    return (this.author.books.length > 0 ? 'Yes - ' : 'No - ') + Date.now()
+                },
+                updateBooks() {
+                    this.author.books = [];
+                }
+            },
+            mounted() {
+                setTimeout(() => {
+                    this.updateValueByComputed = this.publishedBooksMessage // 值不变
+                    this.updateValueByMethod = this.calculateBooksMessage()  // 值发生变化
+                }, 1500)
+            }
+        }).mount('#app')
+    </script>
+</body>
+</html>
