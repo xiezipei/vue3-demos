@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="../assets/css/styles.css">
+</head>
+<body>
+    <div id="app">
+        <div class="wrap">Origin: {{ firstName }} {{ lastName }}</div>
+        <div class="wrap">fullNameByComputed: {{ fullNameByComputed }}</div>
+        <div class="wrap">fullNameByMethods: {{ fullNameByMethods() }}</div>
+        
+    </div>
+    <script src="https://unpkg.com/vue@3.2.22"></script>
+    <script>
+        // 示例：computed setter
+        const vm = Vue.createApp({
+            data() {
+                return {
+                    firstName: 'John',
+                    lastName: 'Wrick'
+                }
+            },
+            computed: {
+                // 默认写法
+                // fullNameByComputed() {
+                //     return this.firstName + ' ' + this.lastName
+                // }
+
+                // 默认只有getter
+                fullNameByComputed: {
+                    // getter
+                    get() {
+                        return this.firstName + ' ' + this.lastName
+                    },
+                    // 添加setter
+                    set(newName) {
+                        const names = newName.split(' ')
+                        this.firstName = names[0]
+                        this.lastName = names[names.length - 1]
+                    }
+                }
+            },
+            methods: {
+                fullNameByMethods() {
+                    return this.firstName + ' ' + this.lastName
+                }
+            },
+            mounted() {
+                // setTimeout(() => {
+                //     this.firstName = 'Tom'
+                // }, 1500)
+            }
+        }).mount('#app')
+
+        // 测试计算方法setter
+        vm.fullNameByComputed = "Hello Vue.js"
+    </script>
+</body>
+</html>
