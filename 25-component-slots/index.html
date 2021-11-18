@@ -12,13 +12,20 @@
 <body>
     <div id="app">
         <!-- 1. 普通插槽 -->
-        <slot-a>普通插槽</slot-a>
+        <div class="wrap">
+            <slot-a>普通插槽</slot-a>
+        </div>
 
         <!-- 2. 插槽作用域 -->
-        <slot-b>name：{{ name }}</slot-b>
+        <div class="wrap">
+            <slot-b>父组件 name：{{ name }}</slot-b>
+            <slot-b></slot-b>
+        </div>
 
         <!-- 3. 备用内容 -->
-        <slot-c></slot-c>
+        <div class="wrap">
+            <slot-c></slot-c>
+        </div>
 
         <!-- 4. 具名插槽 -->
         <div class="wrap">
@@ -35,6 +42,18 @@
                 </template>
             </slot-d>
         </div>
+
+        <!-- 5. 作用域插槽 -->
+        <div class="wrap">
+            <todo-list>
+                <template v-slot:default="slotProps">
+                    <span class="color-red">
+                        <i v-if="slotProps.index > 0"> √ </i>
+                        {{ slotProps.item }}
+                    </span>
+                </template>
+            </todo-list>
+        </div>
     </div>
     <script src="../assets/js/vue@3.2.22.js"></script>
     <script>
@@ -50,9 +69,7 @@
         // 1. 普通插槽
         app.component('slot-a', {
             template: `
-                <div class="wrap">
-                    <slot></slot>
-                </div>
+                <slot></slot>
             `
         })
 
@@ -64,8 +81,8 @@
                 }
             },
             template: `
-                <div class="wrap">
-                    <slot></slot>
+                <div>
+                    <slot>子组件 name: {{ name }}</slot>
                 </div>
             `
         })
@@ -78,9 +95,7 @@
                 }
             },
             template: `
-                <div class="wrap">
-                    <slot>备用内容</slot>
-                </div>
+                <slot>备用内容</slot>
             `
         })
 
@@ -98,6 +113,30 @@
                         <slot name="footer">footer</slot>
                     </footer>
                 </div>
+            `
+        })
+
+        // 5. 作用域插槽
+        app.component('todo-list', {
+            data() {
+                return {
+                    items: [
+                        'Feed a cat',
+                        'Buy milk'
+                    ]
+                }
+            },
+            template: `
+                <ul class="wrap">
+                    <li v-for="(item, index) in items">
+                        {{ item }}
+                    </li>
+                </ul>
+                <ul class="wrap">
+                    <li v-for="(item, index) in items">
+                        <slot :item="item" :index="index"></slot>
+                    </li>
+                </ul>
             `
         })
 
