@@ -14,32 +14,34 @@
                 <button
                     v-for="tab in tabs"
                     :key="tab.id"
-                    :class="['tab-button', { active: currentTabId === tab.id }]"
-                    @click="currentTabId = tab.id; currentTabName = tab.name"
+                    :class="['tab-button', { active: currentTab.id === tab.id }]"
+                    @click="currentTab = tab"
                 >
                     {{ tab.name }}
                 </button>
+                <!-- `is` 属性判断的是子组件名称 -->
                 <component :is="currentTabComponent" class="tab"></component>
             </div>
         </div>
     </div>
     <script src="../assets/js/vue@3.2.22.js"></script>
     <script>
+        // 示例：动态组件
         const app = Vue.createApp({
             data() {
+                const tabs = [
+                    { id: 0, name: 'Home' },
+                    { id: 1, name: 'Posts' },
+                    { id: 2, name: 'Archive' },
+                ];
                 return {
-                    currentTabId: 0,
-                    currentTabName: 'Home',
-                    tabs: [
-                        { id: 0, name: 'Home' },
-                        { id: 1, name: 'Posts' },
-                        { id: 2, name: 'Archive' },
-                    ],
+                    currentTab: tabs[0],
+                    tabs,
                 }
             },
             computed: {
                 currentTabComponent() {
-                    return 'tab-' + this.currentTabName.toLowerCase()
+                    return 'tab-' + this.currentTab.name.toLowerCase()
                 }
             }
         })
