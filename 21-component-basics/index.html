@@ -34,7 +34,7 @@
                 v-for="post in posts"
                 :key="post.id"
                 :title="post.title"
-                @enlarge-text="postFontSize += 1"
+                @enlarge-text="enlargeText($event)"
             ></blog-post-with-btn>
         </div>
     </div>
@@ -52,6 +52,12 @@
                     postFontSize: 12,    // 示例 3
                 }
             },
+            methods: {
+                enlargeText(e) {
+                    console.log(e)
+                    this.postFontSize += e;
+                }
+            }
         })
 
         // 1. 定义一个全局组件：button-counter
@@ -73,19 +79,21 @@
         })
 
         // 2. 监听子组件事件
+        // 在子组件点击按钮触发事件`enlargeText`，父组件监听（@或v-on）到该事件然后进行处理
+        // `$emit` 还可以利用第2个参数抛出一个值
         app.component('blog-post-with-btn', {
             data() {
                 return {
-                    fontSize: 12
+                    fontSize: ''
                 }
             },
             props: ['title'],
             emits: ['enlargeText'],
             template: `
                 <h4 :style="{ fontSize: fontSize + 'px' }">{{ title }}</h4>
-                <button @click="$emit('enlargeText')">Enlarge text by App Component</button>
+                <button @click="$emit('enlargeText', 5)">Enlarge text by App Component</button>
                 <button @click="enlargeTextBySelf">Enlarge text by self</button>
-            `,  // 在子组件点击按钮触发事件`enlargeText`，父组件监听（@或v-on）到该事件然后进行处理
+            `,
             methods: {
                 enlargeTextBySelf() {
                     this.fontSize += 1;
