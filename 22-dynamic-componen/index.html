@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="../assets/css/styles.css">
+</head>
+<body>
+    <div id="app">
+        <div class="wrap">
+            <div class="demo">
+                <button
+                    v-for="tab in tabs"
+                    :key="tab.id"
+                    :class="['tab-button', { active: currentTabId === tab.id }]"
+                    @click="currentTabId = tab.id; currentTabName = tab.name"
+                >
+                    {{ tab.name }}
+                </button>
+                <component :is="currentTabComponent" class="tab"></component>
+            </div>
+        </div>
+    </div>
+    <script src="../assets/js/vue@3.2.22.js"></script>
+    <script>
+        const app = Vue.createApp({
+            data() {
+                return {
+                    currentTabId: 0,
+                    currentTabName: 'Home',
+                    tabs: [
+                        { id: 0, name: 'Home' },
+                        { id: 1, name: 'Posts' },
+                        { id: 2, name: 'Archive' },
+                    ],
+                }
+            },
+            computed: {
+                currentTabComponent() {
+                    return 'tab-' + this.currentTabName.toLowerCase()
+                }
+            }
+        })
+
+        app.component('tab-home', {
+            template: `
+                <div class="tab-content">Home component</div>
+            `
+        })
+
+        app.component('tab-posts', {
+            template: `
+                <div class="tab-content">Posts component</div>
+            `
+        })
+
+        app.component('tab-archive', {
+            template: `
+                <div class="tab-content">Archive component</div>
+            `
+        })
+
+        app.mount('#app')
+    </script>
+</body>
+</html>
