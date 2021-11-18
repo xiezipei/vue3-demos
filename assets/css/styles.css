@@ -15,3 +15,8 @@
 .bolder {
     font-weight: bolder;
 }
+.alert-box {
+    padding: 10px 20px;
+    background: #f3beb8;
+    border: 1px solid #f09898;
+  }

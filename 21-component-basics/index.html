@@ -37,6 +37,11 @@
                 @enlarge-text="enlargeText($event)"
             ></blog-post-with-btn>
         </div>
+
+        <!-- 4. 通过插槽分发内容 -->
+        <div class="wrap">
+            <alert-box>Something bad happened.</alert-box>
+        </div>
     </div>
     <script src="../assets/js/vue@3.2.22.js"></script>
     <script>
@@ -78,9 +83,9 @@
             template: `<h4>{{ title }}</h4>`
         })
 
-        // 2. 监听子组件事件
-        // 在子组件点击按钮触发事件`enlargeText`，父组件监听（@或v-on）到该事件然后进行处理
-        // `$emit` 还可以利用第2个参数抛出一个值
+        // 3. 监听子组件事件
+        // - 在子组件点击按钮触发事件`enlargeText`，父组件监听（@或v-on）到该事件然后进行处理
+        // - $emit` 还可以利用第2个参数抛出一个值
         app.component('blog-post-with-btn', {
             data() {
                 return {
@@ -99,6 +104,17 @@
                     this.fontSize += 1;
                 }
             }
+        })
+
+        // 4. 通过插槽分发内容
+        // - 使用的时候就在标签放内容
+        app.component('alert-box', {
+            template: `
+                <div class="alert-box">
+                    <strong>Error! </strong>
+                    <slot></slot>
+                </div>
+            `
         })
 
         app.mount('#app')
