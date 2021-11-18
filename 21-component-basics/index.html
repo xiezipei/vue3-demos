@@ -74,12 +74,23 @@
 
         // 2. 监听子组件事件
         app.component('blog-post-with-btn', {
+            data() {
+                return {
+                    fontSize: 12
+                }
+            },
             props: ['title'],
             emits: ['enlargeText'],
             template: `
-                <h4>{{ title }}</h4>
-                <button @click="$emit('enlargeText')">Enlarge text</button>    
-            `   // 在子组件点击按钮触发事件`enlargeText`，父组件监听（@或v-on）到该事件然后进行处理
+                <h4 :style="{ fontSize: fontSize + 'px' }">{{ title }}</h4>
+                <button @click="$emit('enlargeText')">Enlarge text by App Component</button>
+                <button @click="enlargeTextBySelf">Enlarge text by self</button>
+            `,  // 在子组件点击按钮触发事件`enlargeText`，父组件监听（@或v-on）到该事件然后进行处理
+            methods: {
+                enlargeTextBySelf() {
+                    this.fontSize += 1;
+                }
+            }
         })
 
         app.mount('#app')
