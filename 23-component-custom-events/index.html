@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="../assets/css/styles.css">
+</head>
+
+<body>
+    <div id="app">
+        <div class="wrap">
+            <p>First name: {{ firstName }}</p>
+            <p>Last name: {{ lastName }}</p>
+            <user-name 
+                v-model:first-name="firstName"
+                v-model:last-name="lastName"
+            ></user-name>
+        </div>
+    </div>
+    <script src="../assets/js/vue@3.2.22.js"></script>
+    <script>
+        // 示例：自定义事件 - 多 v-model 绑定
+        const UserName = {
+            props: {
+                firstName: String,
+                lastName: String
+            },
+            template: `
+                <input 
+                    type="text"
+                    :value="firstName"
+                    @input="$emit('update:firstName', $event.target.value)"
+                >
+                <input 
+                    type="text"
+                    :value="lastName"
+                    @input="$emit('update:lastName', $event.target.value)"
+                >
+            `
+        }
+
+        const app = Vue.createApp({
+            components: {
+                UserName
+            },
+            data() {
+                return {
+                    firstName: 'John',
+                    lastName: 'Wrick',
+                }
+            }
+        })
+
+        app.mount('#app')
+    </script>
+</body>
+
+</html>
