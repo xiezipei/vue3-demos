@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="../assets/css/styles.css">
+</head>
+
+<body>
+    <div id="app">
+        <!-- 1. 普通插槽 -->
+        <slot-a>普通插槽</slot-a>
+
+        <!-- 2. 插槽作用域 -->
+        <slot-b>name：{{ name }}</slot-b>
+
+        <!-- 3. 备用内容 -->
+        <slot-c></slot-c>
+
+        <!-- 4. 具名插槽 -->
+        <div class="wrap">
+            <slot-d>
+                <template v-slot:header>
+                    <h1>Here might be a page title</h1>
+                </template>
+                <template v-slot:default>
+                    <p>A paragraph for the main content.</p>
+                    <p>And another one.</p>
+                </template>
+                <template v-slot:footer>
+                    <p>Here's some contact info</p>
+                </template>
+            </slot-d>
+        </div>
+    </div>
+    <script src="../assets/js/vue@3.2.22.js"></script>
+    <script>
+        // 示例：插槽
+        const app = Vue.createApp({
+            data() {
+                return {
+                    name: 'app'
+                }
+            }
+        })
+
+        // 1. 普通插槽
+        app.component('slot-a', {
+            template: `
+                <div class="wrap">
+                    <slot></slot>
+                </div>
+            `
+        })
+
+        // 2. 插槽作用域
+        app.component('slot-b', {
+            data() {
+                return {
+                    name: 'slot-b'
+                }
+            },
+            template: `
+                <div class="wrap">
+                    <slot></slot>
+                </div>
+            `
+        })
+
+        // 3. 备用内容
+        app.component('slot-c', {
+            data() {
+                return {
+                    name: 'slot-c'
+                }
+            },
+            template: `
+                <div class="wrap">
+                    <slot>备用内容</slot>
+                </div>
+            `
+        })
+
+        // 4. 具名插槽
+        app.component('slot-d', {
+            template: `
+                <div class="container">
+                    <header>
+                        <slot name="header">header</slot>
+                    </header>
+                    <main>
+                        <slot>main</slot>
+                    </main>
+                    <footer>
+                        <slot name="footer">footer</slot>
+                    </footer>
+                </div>
+            `
+        })
+
+        app.mount('#app')
+    </script>
+</body>
+
+</html>
