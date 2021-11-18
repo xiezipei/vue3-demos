@@ -27,6 +27,16 @@
                 :title="post.title"
             ></blog-post>
         </div>
+
+        <!-- 3. 监听子组件事件 -->
+        <div class="wrap" :style="{ fontSize: postFontSize + 'px' }">
+            <blog-post-with-btn
+                v-for="post in posts"
+                :key="post.id"
+                :title="post.title"
+                @enlarge-text="postFontSize += 1"
+            ></blog-post-with-btn>
+        </div>
     </div>
     <script src="../assets/js/vue@3.2.22.js"></script>
     <script>
@@ -34,19 +44,17 @@
         const app = Vue.createApp({
             data() {
                 return {
-                    posts: [
-                        { id: 1, title: 'My journey with Vue 2' },
-                        { id: 2, title: 'Blogging with Vue 2' },
-                        { id: 3, title: 'Why Vue is so fun 2' },
-                    ]
+                    posts: [    // 示例 2
+                        { id: 1, title: 'My journey with Vue —— from posts' },
+                        { id: 2, title: 'Blogging with Vue —— from posts' },
+                        { id: 3, title: 'Why Vue is so fun —— from posts' },
+                    ],
+                    postFontSize: 12,    // 示例 3
                 }
-            }
+            },
         })
 
         // 1. 定义一个全局组件：button-counter
-        // Q1：局部组件如何注册？
-        // Q2：如果该组件要用到父组件的方法，该如何处理？
-        // Q3：组件之间如何传递数据？
         app.component('button-counter', {
             data() {
                 return {
@@ -62,6 +70,16 @@
         app.component('blog-post', {
             props: ['title'],
             template: `<h4>{{ title }}</h4>`
+        })
+
+        // 2. 监听子组件事件
+        app.component('blog-post-with-btn', {
+            props: ['title'],
+            emits: ['enlargeText'],
+            template: `
+                <h4>{{ title }}</h4>
+                <button @click="$emit('enlargeText')">Enlarge text</button>    
+            `   // 在子组件点击按钮触发事件`enlargeText`，父组件监听（@或v-on）到该事件然后进行处理
         })
 
         app.mount('#app')
