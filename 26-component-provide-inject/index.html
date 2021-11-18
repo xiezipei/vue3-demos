@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="../assets/css/styles.css">
+</head>
+<body>
+    <div id="app">
+        <div class="wrap">
+            <todo-list></todo-list>
+        </div>
+    </div>
+    <script src="../assets/js/vue@3.2.22.js"></script>
+    <script>
+        const app = Vue.createApp({})
+
+        // 定义一个全局组件：todo-list-statistics
+        const TodoListStatistics = app.component('todo-list-statistics', {
+            inject: ['user', 'todosLength'],
+            created() {
+                console.log(`Injected property: ${this.user}`)
+            },
+            template: `
+                <div>Injected property: {{ user }}</div>
+                <div>Injected property: {{ todosLength }}</div>
+            `
+        })
+
+        // 定义一个全局组件：todo-list
+        app.component('todo-list', {
+            component: {
+                'todo-list-statistics': TodoListStatistics
+            },
+            data() {
+                return {
+                    todos: ['Feed a cat', 'Buy tickets']
+                }
+            },
+
+            // 错误做法
+            // provide: {
+            //     user: 'John Wrick',
+            //     todosLength: this.todos.length   // => `Cannot read properties of undefined`
+            // },
+
+            // 要访问组件实例 property，我们需要将 provide 转换为返回对象的函数
+            provide() {
+                return {
+                    user: 'John Wrick',
+                    todosLength: this.todos.length
+                }
+            },
+            template: `
+                <div>
+                    Todos length: {{ todos.length }}
+                    <todo-list-statistics></todo-list-statistics>
+                </div>
+            `
+        })
+
+        app.mount('#app')
+    </script>
+</body>
+</html>
