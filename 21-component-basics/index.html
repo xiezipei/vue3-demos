@@ -5,19 +5,49 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+    <link rel="stylesheet" href="../assets/css/styles.css">
 </head>
 <body>
     <div id="app">
-        <button-counter></button-counter>
-        <button-counter></button-counter>
-        <button-counter></button-counter>
+        <!-- 1. 定义全局组件，且每个组件实例都相互独立 -->
+        <div class="wrap">
+            <button-counter></button-counter>
+            <button-counter></button-counter>
+            <button-counter></button-counter>
+        </div>
+
+        <!-- 2. 向子组件传递数据 -->
+        <div class="wrap">
+            <blog-post title="My journey with Vue"></blog-post>
+            <blog-post title="Blogging with Vue"></blog-post>
+            <blog-post title="Why Vue is so fun"></blog-post>
+            <blog-post
+                v-for="post in posts"
+                :key="post.id"
+                :title="post.title"
+            ></blog-post>
+        </div>
     </div>
     <script src="../assets/js/vue@3.2.22.js"></script>
     <script>
         // 示例：组件基础
-        const myApp = Vue.createApp({})
+        const app = Vue.createApp({
+            data() {
+                return {
+                    posts: [
+                        { id: 1, title: 'My journey with Vue 2' },
+                        { id: 2, title: 'Blogging with Vue 2' },
+                        { id: 3, title: 'Why Vue is so fun 2' },
+                    ]
+                }
+            }
+        })
 
-        myApp.component('button-counter', {
+        // 1. 定义一个全局组件：button-counter
+        // Q1：局部组件如何注册？
+        // Q2：如果该组件要用到父组件的方法，该如何处理？
+        // Q3：组件之间如何传递数据？
+        app.component('button-counter', {
             data() {
                 return {
                     count: 0
@@ -28,7 +58,13 @@
             `
         })
 
-        myApp.mount('#app')
+        // 2. 通过 `props` 向子组件传递数据
+        app.component('blog-post', {
+            props: ['title'],
+            template: `<h4>{{ title }}</h4>`
+        })
+
+        app.mount('#app')
     </script>
 </body>
 </html>
