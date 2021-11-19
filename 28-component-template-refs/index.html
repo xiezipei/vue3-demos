@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="../assets/css/styles.css">
+</head>
+<body>
+    <div id="app">
+        <base-input ref="usernameInput"></base-input>
+    </div>
+    <script src="../assets/js/vue@3.2.22.js"></script>
+    <script>
+        // 示例：模板引用 ref
+        // 要点：
+        // 1. 组件自己使用，就把ref加在template里面
+        // 2. 父组件要拿子组件引用，就把ref加在子组件身上
+        const app = Vue.createApp({
+            mounted() {
+                console.log(this.$refs)
+                this.$refs.usernameInput.focusInput()
+            }
+        })
+
+        app.component('base-input', {
+            template: `
+                <input ref="input" />
+            `,
+            methods: {
+                focusInput() {
+                    this.$refs.input.focus()
+                    
+                }
+            },
+            mounted() {
+                console.log(this.$refs)
+                this.focusInput()
+                
+            }
+        })
+
+        app.mount('#app')
+    </script>
+</body>
+</html>
