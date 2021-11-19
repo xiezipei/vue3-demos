@@ -19,12 +19,14 @@
 
         // 定义一个全局组件：todo-list-statistics
         const TodoListStatistics = app.component('todo-list-statistics', {
-            inject: ['user', 'todosLength'],
+            // inject: ['user', 'todosLength'],
+            inject: ['todosLength'],
             created() {
-                console.log(`Injected property: ${this.user}`)
+                // console.log(`Injected property: ${this.user}`)
+                console.log(`Injected property: ${this.todosLength}`)
             },
             template: `
-                <div>Injected property: {{ user }}</div>
+                <!-- <div>Injected property: {{ user }}</div> -->
                 <div>Injected property: {{ todosLength }}</div>
             `
         })
@@ -40,19 +42,28 @@
                 }
             },
 
-            // 错误做法
+            // 1/3 错误做法
             // provide: {
             //     user: 'John Wrick',
-            //     todosLength: this.todos.length   // => `Cannot read properties of undefined`
+            //     todosLength: this.todos.length   // => 报错：`Cannot read properties of undefined`
             // },
 
-            // 要访问组件实例 property，我们需要将 provide 转换为返回对象的函数
+            // 2/3 要访问组件实例 property，我们需要将 provide 转换为返回对象的函数
+            // provide() {
+            //     return {
+            //         user: 'John Wrick',
+            //         todosLength: this.todos.length
+            //     }
+            // },
+
+            // 3/3 处理响应性
+            // 为了试验，加个按钮点击改变 todos
             provide() {
                 return {
-                    user: 'John Wrick',
-                    todosLength: this.todos.length
+                    todosLength: Vue.computed(() => this.todos.length)
                 }
             },
+
             template: `
                 <div>
                     Todos length: {{ todos.length }}
@@ -60,7 +71,7 @@
                 </div>
             `
         })
-
+        app.config.unwrapInjectedRef = true // 忽略警告
         app.mount('#app')
     </script>
 </body>
