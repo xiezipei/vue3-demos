@@ -15,7 +15,7 @@ import { ref, computed, onMounted, toRefs, watch } from 'vue'
 </script>
 
 <template>
-  <button @click="count++">+1</button>
+  <button @click="increment">+1</button>
   <div>当前todolist事项已有：{{ existCount }}条</div>
   <div>当前操作已新增：{{ count }}，共有{{ total }}条</div>
 </template>

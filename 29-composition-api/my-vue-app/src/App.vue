@@ -1,9 +1,9 @@
 <script setup>
-import counter from "./components/counter.vue";
+import counter from "./components/counter.vue"
 </script>
 
 <template>
-  <div>composition API:</div>
+  <div>Computed</div>
   <counter />
 </template>
 
