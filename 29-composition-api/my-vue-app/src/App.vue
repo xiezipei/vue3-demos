@@ -1,7 +1,3 @@
-<script setup>
-import counter from "./components/counter.vue"
-</script>
-
 <template>
   <div class="my-vue-app">
     <h1>Vue 3 App</h1>
@@ -17,6 +13,10 @@ import counter from "./components/counter.vue"
     <!-- 示例 2 s -->
     <div class="section">
       <h2>2. Teleport（传入）</h2>
+      <div class="desc">
+        Teleport 功能，使得我们可以将全屏的组件（例如 Toast）移到 Vue APP 节点外，而不需要在 UI 界面上修改其他组件样式，方便实现全屏蒙层、浮层弹窗等效果。
+      </div>
+      <toast :user="'xxx'" />
     </div>
     <!-- 示例 2 e -->
     <!-- 示例 3 s -->
@@ -30,6 +30,11 @@ import counter from "./components/counter.vue"
     </div>
   </div>
 </template>
+
+<script setup>
+  import counter from "./components/counter.vue"
+  import toast from "./components/toast.vue"
+</script>
 
 <style lang="scss">
 .my-vue-app {
