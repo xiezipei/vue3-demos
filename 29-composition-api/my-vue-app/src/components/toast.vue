@@ -3,7 +3,7 @@
         <button @click="showToast" class="btn">打开弹出</button>
         <teleport to="#teleportToast">
             <div v-if="toastFlag" class="toast__wrap" @click="hideToast">
-                <h2>我是标题弹窗</h2>
+                <h2>我是弹窗</h2>
                 <div class="toast__wrap--msg">欢迎 {{ user }}，点击关闭</div>
             </div>
         </teleport>
